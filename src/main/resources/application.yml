@@ -1,0 +1,63 @@
+spring:
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+  thymeleaf:
+    cache: true
+    mode: LEGACYHTML5
+    prefix: classpath:/templates/
+    suffix: .html
+  profiles:
+#    active: local
+    include: main,common,third
+  main:
+    allow-bean-definition-overriding: true
+  application:
+    name: boot3-demo1
+  cloud:
+    compatibility-verifier:
+      enabled: true
+    nacos:
+      username: ybs
+      password: ybs
+      config:
+        server-addr: 106.55.198.70:8849,106.55.198.70:8859,106.55.198.70:8869
+        file-extension: yml
+        namespace: ybs
+        shared-configs[0]:
+          data-id: ybs-common.yml
+          group: common
+          refresh: true
+        shared-configs[1]:
+          data-id: ybs-third.yml
+          group: common
+          refresh: true
+  servlet:
+    multipart:
+      max-file-size: 100MB
+      max-request-size: 105MB
+  jackson:
+    generator:
+      write_numbers_as_strings: true
+logging:
+  file:
+    path: /var/logs/ybs/${spring.application.name}/
+    name: ${spring.application.name}
+  level:
+    root: info
+
+
+
+feign:
+  circuitbreaker:
+    enabled: true
+    group:
+      enabled: true
+
+mybatis-plus:
+  configuration:
+    log-impl: org.apache.ibatis.logging.nologging.NoLoggingImpl
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+  configuration:
+    log-impl: org.apache.ibatis.logging.nologging.NoLoggingImpl

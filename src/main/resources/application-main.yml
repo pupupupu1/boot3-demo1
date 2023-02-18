@@ -1,0 +1,54 @@
+server:
+  port: 11000
+spring:
+  cloud:
+    stream:
+      rabbit: # 进行rabbit的相关绑定配置
+        bindings:
+          myChannel-in-0:
+            consumer: # 进行消费端配置
+              bindingRoutingKey: queue4-key
+          myChannel2-in-0:
+            consumer: # 进行消费端配置
+              bindingRoutingKey: queue2-key
+          myChannel-out-0:
+            producer: # 进行消费端配置
+              routing-key-expression: '''queue2-key'''
+      function:
+        # 定义消费者，多个用分号分隔，当存在大于1个的消费者时，不定义不会生效
+        definition: myChannel;myChannel2
+      binders:
+        defaultRabbit:
+          type: rabbit
+      bindings:
+        myChannel-out-0:
+          destination: demo2
+          contentType: text/plain
+          group: queue2
+          binder: defaultRabbit
+        myChannel-in-0:
+          destination: demo2
+          contentType: text/plain
+          group: queue3
+          binder: defaultRabbit
+        myChannel2-in-0:
+          destination: demo2
+          contentType: text/plain
+          group: queue2
+          binder: defaultRabbit
+    compatibility-verifier:
+      enabled: true
+    nacos:
+      username: ybs
+      password: ybs
+      discovery:
+#        ip: ${local.ip}
+        namespace: ybs
+        server-addr: 106.55.198.70:8849,106.55.198.70:8859,106.55.198.70:8869
+
+com:
+  ybs:
+    im:
+      tcpContextPath: /ws
+      tcpLongConnectPort: 10001
+      udpConnectPort: 11001

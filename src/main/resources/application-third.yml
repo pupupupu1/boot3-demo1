@@ -1,0 +1,39 @@
+com:
+  pjm:
+    email:
+      enabled: true
+    sms:
+      enabled: true
+      accessKey: LTAI4FdQ4VkK61THqGQNuNCt
+      accessSecret: LV4fMoFykz2Ff7vz0oMBqDDkBMGWsX
+      signName: becomeagoodb
+    mp:
+      appid: wx62d11db12460cb09
+      secret: abc037ab68dbb0edf891162e23d29abd
+      #
+      partner: 123
+      partnerkey: 321
+      wxPayUrl: https://api.mch.weixin.qq.com
+      code2SessionUrl: https://api.weixin.qq.com/sns/jscode2session?appid={appid}&secret={secret}&js_code={code}&grant_type=authorization_code
+      callbackUrl: https://www.becomeagoodboy.top/cloud/
+
+spring:
+  mail:
+    host: smtp.qq.com
+    default-encoding: UTF-8
+    port: 465
+    password: flnbmuvzhfkxebcj
+    properties:
+      imap:
+        ssl:
+          socketFactory:
+            fallback: false
+      mail:
+        smtp:
+          ssl:
+            enable: true
+          auth: true
+          starttls:
+            enable: true
+            required: true
+    username: 2522340502@qq.com

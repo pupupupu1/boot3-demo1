@@ -1,0 +1,45 @@
+spring:
+  profiles:
+#    active: local
+    include: main,common,third
+  main:
+    allow-bean-definition-overriding: true
+  application:
+    name: boot3-demo1
+  cloud:
+    compatibility-verifier:
+      enabled: true
+    nacos:
+      username: ybs
+      password: ybs
+      config:
+        server-addr:
+        file-extension: yml
+        namespace: ybs
+        shared-configs[0]:
+          data-id: ybs-common.yml
+          group: common
+          refresh: true
+        shared-configs[1]:
+          data-id: ybs-third.yml
+          group: common
+          refresh: true
+      discovery:
+        server-addr:
+        enabled: true
+  servlet:
+    multipart:
+      max-file-size: 100MB
+      max-request-size: 105MB
+  jackson:
+    generator:
+      write_numbers_as_strings: true
+logging:
+  file:
+    path: /var/logs/ybs/${spring.application.name}/
+    name: ${spring.application.name}
+  level:
+    root: info
+  logback:
+    rollingpolicy:
+      file-name-pattern: /var/logs/ybs/${spring.application.name}/
